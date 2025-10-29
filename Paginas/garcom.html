@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Garçom</title>
+  
+  <link rel="stylesheet" href="garcom.css" />
+  
+  <link rel="icon" href="../images/favicons.svg" type="image/svg+xml" /> 
+</head>
+<body>
+  <header>
+    <div class="logo-area">
+      <div class="esquerdaHeader">
+        <img id="logo" src="../images/logo2s.svg" alt="Logo" />
+        <div class="barra"></div>
+        <h1>Garçom</h1>
+      </div>
+      <div class="direitaHeader">
+        <label class="switch">
+          <input type="checkbox" id="botaoDarkMode" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="esquerda">
+      <div class="mesa">
+        <h2>Mesa / Cliente</h2>
+        <div id="select-area"> 
+          <select name="selecionarM" id="opcoes" onchange="verificarOpcao()">
+            <option value="">Selecione</option>
+            <option value="Levar">Levar</option>
+            </select>
+          <div id="caixaTexto">
+            <input type="text" id="texto" name="texto" placeholder="Nome do cliente" />
+          </div>
+        </div>
+      </div>
+
+      <div class="pedido">
+        <h2>Pedido Atual</h2>
+        <div id="lista-pedido">
+          <p class="aviso-pedido">Nenhum item adicionado.</p>
+        </div>
+        
+        <div id="pedido-footer">
+            <div id="pedido-total">Total: R$ 0,00</div>
+            <button id="btn-enviar-pedido" disabled>Enviar Pedido</button>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="direita">
+      <div class="cardapio">
+        <h2>Cardápio</h2>
+        <div id="cardapio-content">
+            <div id="categorias-lista">
+                </div>
+            
+            <div id="produtos-lista">
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="comanda.js"></script>
+</body>
+</html>

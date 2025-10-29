@@ -1,0 +1,505 @@
+:root {
+  --texto: #141414;
+  --background: #f7f6f3;
+  --primario: #d45425; /* Laranja Primário */
+  --secundario: #f4a462; /* Laranja Secundário */
+  --detalhe: #c72929; /* Vermelho/Detalhe */
+}
+
+/* ================= Modo escuro (Variações) ================= */
+body.dark-mode {
+  --texto: #ebebeb;
+  --background: #0c0b08;
+  --primario: #da592b;
+  --secundario: #9d4d0b;
+  --detalhe: #d63838;
+}
+
+body.dark-mode header {
+  background-color: rgba(157, 77, 11, 0.1);
+}
+
+body.dark-mode .barra {
+  background-color: var(--texto);
+}
+
+/* ================= Base e HTML/Body ================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* IMPEDE zoom horizontal indesejado */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--texto);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  background-color: rgba(244, 164, 98, 0.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: var(--texto);
+  padding: 5px 20px;
+}
+
+h1 {
+  color: var(--texto);
+  font-size: 25px;
+}
+
+h2 {
+    font-size: 15px;
+    margin: 30px 30px 15px; /* Top Right Bottom Left */
+    padding-top: 15px;
+    text-transform: uppercase;
+}
+
+.barra {
+  background-color: var(--texto);
+  width: 2px;
+  height: 25px;
+}
+
+/* ================= Layout Header ================= */
+.logo-area {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.esquerdaHeader, .direitaHeader {
+  display: flex;
+  align-items: center;
+}
+
+.esquerdaHeader {
+  gap: 10px;
+}
+
+.direitaHeader {
+  justify-content: flex-end;
+}
+
+#logo {
+  width: auto;
+  height: 30px;
+}
+
+/* ================= Botão switch (Dark Mode) ================= */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--detalhe);
+  transition: 0.4s;
+  border-radius: 18px;
+}
+
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--background);
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--primario);
+}
+
+input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+/* ================= Blocos principais (Layout Flex) ================= */
+
+.mesa,
+.pedido,
+.cardapio {
+  background-color: rgba(244, 164, 98, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.mesa {
+  width: 300px;
+  height: 150px;
+  margin: 30px 10px 30px 30px; /* Consolidado: Top Right Bottom Left */
+}
+
+.pedido {
+  width: 300px;
+  max-height: 500px; 
+  min-height: 500px;
+  margin: 0 10px 30px 30px; /* Reduzida a margem superior (já tem em .mesa) */
+  display: flex; 
+  flex-direction: column;
+}
+
+.pedido h2 {
+  margin-top: 0px;
+}
+
+.cardapio {
+  width: auto; /* Ocupa 100% do container pai (.direita) */
+  min-height: 400px; 
+  margin: 30px;
+  padding-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  min-height: calc(100vh - 60px); 
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.esquerda {
+  flex-shrink: 0; /* Impede o painel esquerdo de encolher */
+}
+
+.direita {
+  flex: 1; /* Ocupa o espaço restante */
+}
+
+/* ================= Seletor de mesa e caixa de texto ================= */
+
+#select-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#opcoes, #caixaTexto input {
+  width: 260px;
+  height: 40px; /* Unindo altura para os dois elementos */
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 6px 8px; /* Padding unificado */
+  border: 1px solid var(--detalhe);
+  background-color: var(--background);
+  color: var(--texto);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+#opcoes:focus, #caixaTexto input:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 6px rgba(212, 84, 37, 0.4);
+}
+
+#caixaTexto {
+  display: none; 
+  transition: opacity 0.3s ease;
+}
+
+#caixaTexto input {
+  width: 240px; /* Ajuste manual para input */
+  height: 20px;
+  padding: 8px;
+}
+
+
+/* ================= Estrutura do Cardápio ================= */
+
+#cardapio-content {
+    padding: 0 20px 20px;
+    display: block; 
+}
+
+#categorias-lista {
+    display: flex;
+    overflow-x: auto; 
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    scrollbar-color: var(--secundario) var(--background);
+}
+
+.btn-categoria {
+    padding: 8px 15px;
+    margin-right: 10px;
+    white-space: nowrap; 
+    border: 1px solid var(--primario);
+    border-radius: 5px;
+    background-color: var(--background);
+    color: var(--primario);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0; 
+}
+
+.btn-categoria:hover, .btn-categoria.ativo {
+    background-color: var(--primario);
+    color: var(--background);
+}
+
+#produtos-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 15px;
+    padding-top: 10px;
+}
+
+/* ================= Cardápio (Produtos) ================= */
+
+.produto-card {
+    background-color: var(--background);
+    border: 1px solid var(--secundario);
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.1s, box-shadow 0.1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80px;
+    height: auto; 
+}
+
+.produto-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.produto-nome {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: var(--primario);
+    word-wrap: break-word; 
+}
+
+.produto-preco {
+    font-size: 0.9em;
+    color: var(--texto);
+    text-align: right;
+}
+
+/* ================= Pedido Atual (Lateral Esquerda) ================= */
+
+#lista-pedido {
+    flex-grow: 1; 
+    padding: 0 20px;
+    overflow-y: auto; 
+    max-height: 400px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primario) var(--background);
+}
+
+.aviso-pedido {
+    text-align: center;
+    color: #888;
+    font-size: 0.9em;
+    padding: 20px 0;
+}
+
+#pedido-footer {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto; 
+}
+
+#pedido-total {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--primario);
+    text-align: right;
+}
+
+#btn-enviar-pedido {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--detalhe);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#btn-enviar-pedido:hover:not(:disabled) {
+    background-color: rgb(215, 40, 40);
+}
+
+#btn-enviar-pedido:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+#btn-enviar-pedido:disabled {
+    background-color: #aaa; 
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* ================= Lista de Pedidos (Itens) ================= */
+
+.item-pedido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; 
+}
+
+.item-pedido:last-child {
+    border-bottom: none;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.item-qtd {
+    font-weight: bold;
+    color: var(--detalhe);
+}
+
+.item-nome {
+    font-size: 0.9em;
+    color: var(--texto);
+}
+
+.item-acoes {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto; 
+}
+
+.item-subtotal {
+    font-size: 0.9em;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.btn-remover, .btn-adicionar {
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.btn-remover {
+    background-color: var(--detalhe);
+}
+
+.btn-adicionar {
+    background-color: var(--primario);
+}
+
+
+/* ==================================================== */
+/* === MEDIA QUERY PARA TABLETS E TELAS PEQUENAS (900px) === */
+/* ==================================================== */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .esquerda {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .mesa, .pedido, .cardapio {
+         /* Consolidação: Todos os blocos centrais usam 90% da largura máxima no tablet */
+        width: 90%;
+        max-width: 400px;
+        margin: 15px auto;
+    }
+
+    .mesa h2 {
+      margin-top: 0px;
+    }
+
+    .cardapio {
+         min-height: 400px;
+    }
+}
+
+
+/* ==================================================== */
+/* === MEDIA QUERY PARA CELULARES (OTIMIZAÇÃO - 550px) === */
+/* ==================================================== */
+@media (max-width: 550px) {
+
+    /* --- Otimização do Header --- */
+    h1 {
+        font-size: 20px;
+    }
+    
+    h2 {
+        font-size: 14px;
+        margin: 15px; 
+        padding-top: 10px;
+    }
+
+    .esquerdaHeader {
+        gap: 5px; 
+    }
+
+    /* --- Ajuste dos Blocos (Herdado de 900px, mas com ajuste de margem/width para 95%) --- */
+    .mesa, .pedido, .cardapio {
+        width: 95%; /* Prioriza 95% para telas muito pequenas */
+        max-width: 350px; /* Remove o limite de 400px para usar 95% total */
+        margin: 10px auto; 
+        min-height: auto; 
+    }
+
+    /* --- Ajuste da Lista de Produtos (Cardápio Grid) --- */
+    #produtos-lista {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+        gap: 10px; 
+        padding: 0 5px; 
+    }
+    
+    .produto-card {
+        padding: 10px;
+        min-height: 70px;
+    }
+    
+    .produto-nome {
+        font-size: 1em;
+    }
+}
