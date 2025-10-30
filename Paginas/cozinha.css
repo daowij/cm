@@ -1,0 +1,585 @@
+:root {
+    --primario: #d45425;
+    --detalhe: #c72929;
+    --fundo: #ffffff;
+    --texto: #333333;
+    --card: #ffffff;
+    --borda: #e0e0e0;
+    --sombra: rgba(0, 0, 0, 0.1);
+    --pendente: #ffc107;
+    --preparando: #17a2b8;
+    --pronto: #28a745;
+    --hover: #f8f9fa;
+    --comidas: #ff6b35;
+    --bebidas: #4ecdc4;
+}
+
+[data-theme="dark"] {
+    --fundo: #1a1a1a;
+    --texto: #e0e0e0;
+    --card: #2d2d2d;
+    --borda: #404040;
+    --sombra: rgba(0, 0, 0, 0.3);
+    --hover: #383838;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--fundo);
+    color: var(--texto);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Header com cor específica para bebidas */
+body[data-tipo="bebidas"] header {
+    background: linear-gradient(135deg, #4ecdc4, #44a8a0);
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primario), var(--detalhe));
+    color: white;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px var(--sombra);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.contador-pedidos {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.contador {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.label {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.btn-switch {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--primario);
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body[data-tipo="bebidas"] .btn-switch {
+    color: #4ecdc4;
+}
+
+.btn-switch:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-icon:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.btn-voltar {
+    background: white;
+    color: var(--primario);
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+body[data-tipo="bebidas"] .btn-voltar {
+    color: #4ecdc4;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Layout */
+main {
+    max-width: 1800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+/* Filtros */
+.filtros-wrapper {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.filtros {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: var(--card);
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px var(--sombra);
+}
+
+.filtro-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--borda);
+    background: var(--fundo);
+    color: var(--texto);
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filtro-btn:hover {
+    background: var(--hover);
+    transform: translateY(-2px);
+}
+
+.filtro-btn.active {
+    background: var(--primario);
+    color: white;
+    border-color: var(--primario);
+}
+
+body[data-tipo="bebidas"] .filtro-btn.active {
+    background: var(--bebidas);
+    border-color: var(--bebidas);
+}
+
+/* Grid de Pedidos */
+.pedidos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    min-height: 400px;
+}
+
+/* Card de Pedido */
+.pedido-card {
+    background: var(--card);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border-left: 6px solid;
+    box-shadow: 0 4px 12px var(--sombra);
+    transition: all 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pedido-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px var(--sombra);
+}
+
+.pedido-card.pendente {
+    border-left-color: var(--pendente);
+}
+
+.pedido-card.preparando {
+    border-left-color: var(--preparando);
+}
+
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pedido-mesa {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primario);
+}
+
+body[data-tipo="bebidas"] .pedido-mesa {
+    color: var(--bebidas);
+}
+
+.pedido-status {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.pedido-status.pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.pedido-status.preparando {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+[data-theme="dark"] .pedido-status.pendente {
+    background: rgba(255, 193, 7, 0.2);
+    color: var(--pendente);
+}
+
+[data-theme="dark"] .pedido-status.preparando {
+    background: rgba(23, 162, 184, 0.2);
+    color: var(--preparando);
+}
+
+.pedido-tempo {
+    font-size: 0.95rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--hover);
+    border-radius: 8px;
+}
+
+.pedido-itens {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1rem 0;
+    border-top: 2px dashed var(--borda);
+    border-bottom: 2px dashed var(--borda);
+}
+
+.item-resumo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: var(--hover);
+    border-radius: 8px;
+}
+
+.item-nome {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.item-qtd {
+    background: var(--primario);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    min-width: 45px;
+    text-align: center;
+}
+
+body[data-tipo="bebidas"] .item-qtd {
+    background: var(--bebidas);
+}
+
+.pedido-acoes {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.btn-acao {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-preparar {
+    background: var(--preparando);
+    color: white;
+}
+
+.btn-preparar:hover {
+    background: #138496;
+    transform: translateY(-2px);
+}
+
+.btn-finalizar {
+    background: var(--pronto);
+    color: white;
+}
+
+.btn-finalizar:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-detalhes {
+    background: var(--card);
+    color: var(--texto);
+    border: 2px solid var(--borda);
+}
+
+.btn-detalhes:hover {
+    background: var(--hover);
+    border-color: var(--primario);
+}
+
+body[data-tipo="bebidas"] .btn-detalhes:hover {
+    border-color: var(--bebidas);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: #999;
+    font-size: 1.5rem;
+    grid-column: 1 / -1;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: var(--card);
+    border-radius: 15px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 2px solid var(--borda);
+}
+
+.modal-header h3 {
+    color: var(--primario);
+    font-size: 1.5rem;
+}
+
+body[data-tipo="bebidas"] .modal-header h3 {
+    color: var(--bebidas);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--texto);
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    background: var(--hover);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--hover);
+    border-radius: 8px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--texto);
+}
+
+.info-value {
+    color: var(--primario);
+    font-weight: 600;
+}
+
+body[data-tipo="bebidas"] .info-value {
+    color: var(--bebidas);
+}
+
+.modal-itens {
+    margin-top: 1.5rem;
+}
+
+.modal-itens h4 {
+    color: var(--primario);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+body[data-tipo="bebidas"] .modal-itens h4 {
+    color: var(--bebidas);
+}
+
+.modal-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--hover);
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid var(--primario);
+}
+
+body[data-tipo="bebidas"] .modal-item {
+    border-left-color: var(--bebidas);
+}
+
+.modal-item-info h5 {
+    color: var(--texto);
+    margin-bottom: 0.3rem;
+}
+
+.modal-item-detalhes {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .pedidos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pedidos-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .filtro-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 550px) {
+    header h1 {
+        font-size: 1.4rem;
+    }
+
+    main {
+        padding: 0 1rem;
+        margin: 1rem auto;
+    }
+
+    .filtros {
+        padding: 0.8rem;
+    }
+
+    .filtro-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebidas - Comanda 3.0</title>
+    <link rel="stylesheet" href="cozinha.css">
+</head>
+<body data-tipo="bebidas">
+    <header>
+        <div class="header-content">
+            <h1>🥤 Cozinha - Bebidas</h1>
+            <div class="header-actions">
+                <div class="contador-pedidos">
+                    <span class="contador" id="contadorPedidos">0</span>
+                    <span class="label">Pedidos</span>
+                </div>
+                <a href="cozinha.html" class="btn-switch">🍔 Ir para Comidas</a>
+                <button id="darkModeToggle" class="btn-icon" title="Alternar tema">
+                    🌙
+                </button>
+                <a href="inicio.html" class="btn-voltar">← Voltar</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="filtros-wrapper">
+            <div class="filtros">
+                <button class="filtro-btn active" data-filtro="todos">📋 Todos</button>
+                <button class="filtro-btn" data-filtro="pendente">⏳ Pendentes</button>
+                <button class="filtro-btn" data-filtro="preparando">👨‍🍳 Preparando</button>
+            </div>
+        </div>
+
+        <div id="pedidosGrid" class="pedidos-grid">
+            <!-- Cards de pedidos serão inseridos aqui -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <p>🎉 Nenhum pedido de bebida no momento!</p>
+        </div>
+    </main>
+
+    <!-- Modal de Detalhes do Pedido -->
+    <div id="modalPedido" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Detalhes do Pedido</h3>
+                <button class="modal-close" onclick="fecharModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Conteúdo será inserido aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script src="cozinha.js"></script>
+</body>
+</html>

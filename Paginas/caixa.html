@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa - Comanda 3.0</title>
+    <link rel="stylesheet" href="caixa.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🧾 Caixa</h1>
+            <div class="header-actions">
+                <button id="darkModeToggle" class="btn-icon" title="Alternar tema">
+                    🌙
+                </button>
+                <a href="inicio.html" class="btn-voltar">← Voltar</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Coluna Esquerda: Mesas -->
+        <section class="mesas-container">
+            <h2>Mesas</h2>
+            <div id="mesasGrid" class="mesas-grid">
+                <!-- Mesas serão inseridas aqui via JS -->
+            </div>
+        </section>
+
+        <!-- Coluna Central: Itens da Mesa -->
+        <section class="itens-container">
+            <div class="mesa-info">
+                <h2 id="mesaSelecionada">Selecione uma mesa</h2>
+                <span id="statusMesa" class="status-badge"></span>
+            </div>
+            
+            <div id="itensPedido" class="itens-lista">
+                <div class="empty-state">
+                    <p>👆 Selecione uma mesa para ver os pedidos</p>
+                </div>
+            </div>
+
+            <div class="total-pedido">
+                <span>Total da Mesa:</span>
+                <span id="totalMesa" class="valor-total">R$ 0,00</span>
+            </div>
+        </section>
+
+        <!-- Coluna Direita: Pagamento -->
+        <section class="pagamento-container">
+            <h2>Fechar Conta</h2>
+            
+            <div class="pagamento-form">
+                <div class="form-group">
+                    <label for="valorPago">Valor Pago</label>
+                    <div class="input-valor">
+                        <span class="currency">R$</span>
+                        <input type="number" id="valorPago" step="0.01" min="0" placeholder="0,00">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="formaPagamento">Forma de Pagamento</label>
+                    <select id="formaPagamento">
+                        <option value="">Selecione...</option>
+                        <option value="dinheiro">💵 Dinheiro</option>
+                        <option value="debito">💳 Débito</option>
+                        <option value="credito">💳 Crédito</option>
+                        <option value="pix">📱 PIX</option>
+                    </select>
+                </div>
+
+                <div class="troco-info" id="trocoInfo" style="display: none;">
+                    <div class="troco-valor">
+                        <span>Troco:</span>
+                        <span id="valorTroco" class="troco">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">Observações (opcional)</label>
+                    <textarea id="observacoes" rows="3" placeholder="Ex: Cliente pediu nota fiscal..."></textarea>
+                </div>
+
+                <button id="btnFecharConta" class="btn-fechar" disabled>
+                    ✅ Fechar Conta
+                </button>
+
+                <button id="btnLimparMesa" class="btn-limpar" disabled>
+                    🗑️ Limpar Mesa
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="caixa.js"></script>
+</body>
+</html>

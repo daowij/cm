@@ -1,0 +1,4 @@
+# Arquivos e pastas a serem ignorados pelo Git
+/node_modules
+npm-debug.log
+.DS_Store
