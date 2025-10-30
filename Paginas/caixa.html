@@ -8,13 +8,17 @@
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <h1>🧾 Caixa</h1>
-            <div class="header-actions">
-                <button id="darkModeToggle" class="btn-icon" title="Alternar tema">
-                    🌙
-                </button>
-                <a href="inicio.html" class="btn-voltar">← Voltar</a>
+        <div class="logo-area">
+            <div class="esquerdaHeader">
+                <img id="logo" src="../images/logo2.svg" alt="Logo" />
+                <div class="barra"></div>
+                <h1>Caixa</h1>
+            </div>
+            <div class="direitaHeader">
+                <label class="switch">
+                <input type="checkbox" id="botaoDarkMode" />
+                <span class="slider"></span>
+                </label>
             </div>
         </div>
     </header>
@@ -37,7 +41,7 @@
             
             <div id="itensPedido" class="itens-lista">
                 <div class="empty-state">
-                    <p>👆 Selecione uma mesa para ver os pedidos</p>
+                    <p>Selecione uma mesa para ver os pedidos</p>
                 </div>
             </div>
 

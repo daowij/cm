@@ -321,26 +321,57 @@ function limparFormulario() {
     document.getElementById('trocoInfo').style.display = 'none';
 }
 
-// Dark Mode
-function toggleDarkMode() {
+// ===================================
+// 2. Lógica de Dark Mode Refatorada
+// ===================================
+
+// Funções para gerenciar o estado e a UI
+function aplicarTema(tema) {
     const body = document.body;
-    const isDark = body.getAttribute('data-theme') === 'dark';
-    const newTheme = isDark ? 'light' : 'dark';
-    
-    body.setAttribute('data-theme', newTheme);
-    
-    const icon = document.getElementById('darkModeToggle');
-    icon.textContent = isDark ? '🌙' : '☀️';
-    
-    // Salvar preferência (sem localStorage - usar variável de sessão)
-    window.darkModePreference = newTheme;
+    body.setAttribute('data-theme', tema);
+
+    // Atualiza o estado visual do botão/checkbox
+    if (botaoDarkMode) {
+        botaoDarkMode.checked = (tema === 'dark');
+    }
+
 }
 
-function carregarDarkMode() {
-    // Carregar de variável de sessão ou usar padrão light
-    const savedTheme = window.darkModePreference || 'light';
-    document.body.setAttribute('data-theme', savedTheme);
+function carregarTemaSalvo() {
+    // A lógica original usava localStorage.getItem("modoEscuro")
+    // Se você *precisa* manter a persistência entre sessões (mesmo com a nova lógica do seu prompt),
+    // é melhor continuar usando localStorage. Se o seu novo requisito é usar *apenas* a variável de sessão (como no seu novo prompt),
+    // esta lógica deve ser ajustada para usar window.darkModePreference.
+
+    // A opção mais fiel ao código original (usando localStorage para persistência):
+    const modoSalvo = localStorage.getItem("modoEscuro");
     
-    const icon = document.getElementById('darkModeToggle');
-    icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    // Converte o valor "true" ou "false" salvo para o tema 'dark' ou 'light'
+    const temaInicial = (modoSalvo === "true") ? 'dark' : 'light';
+    
+    aplicarTema(temaInicial);
+}
+
+// Inicialização: Carrega o tema ao iniciar
+carregarTemaSalvo();
+
+// Adiciona o listener para a interação do usuário
+if (botaoDarkMode) {
+    botaoDarkMode.addEventListener('click', () => {
+        const body = document.body;
+        // Verifica o tema atual para determinar o próximo
+        const isDark = body.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
+
+        // Aplica o novo tema (atualiza data-theme, logo e estado do botão)
+        aplicarTema(newTheme);
+
+        // Salva a preferência (mantendo a persistência da lógica original)
+        // O valor salvo é 'true' ou 'false', compatível com a chave "modoEscuro"
+        const escuro = (newTheme === 'dark');
+        localStorage.setItem("modoEscuro", escuro);
+
+        // Se você quiser seguir a risca o novo prompt (usando variável de sessão),
+        // use: window.darkModePreference = newTheme;
+    });
 }
