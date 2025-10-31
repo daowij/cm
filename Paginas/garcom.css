@@ -432,7 +432,6 @@ h2 {
 .btn-categoria:hover {
   background-color: var(--hover);
   border-color: var(--primario);
-  transform: translateY(-2px);
 }
 
 .btn-categoria.ativo {

@@ -292,7 +292,6 @@ function atualizarListaPedido() {
                 <span class="item-nome">${item.nome}</span>
             </div>
             <div class="item-acoes">
-                <span class="item-subtotal">R$ ${(item.quantidade * item.preco).toFixed(2).replace('.', ',')}</span>
                 <button class="btn-remover" data-id="${item.id}">-</button>
                 <button class="btn-adicionar" data-id="${item.id}">+</button>
             </div>

@@ -35,106 +35,107 @@ body {
 
 /* ================= Header ================= */
 header {
-  background: linear-gradient(135deg, var(--primario), var(--detalhe));
-  color: white;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px var(--sombra);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+    background: linear-gradient(135deg, var(--primario), var(--detalhe));
+    color: white;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px var(--sombra);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo-area {
-  max-width: 1800px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .esquerdaHeader {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 #logo {
-  width: auto;
-  height: 35px;
+    width: auto;
+    height: 35px;
 }
 
 .barra {
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 2px;
-  height: 30px;
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 2px;
+    height: 30px;
 }
 
 h1 {
-  color: white;
-  font-size: 1.8rem;
-  font-weight: 600;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
 .direitaHeader {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 /* ================= Switch Dark Mode ================= */
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 26px;
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(255, 255, 255, 0.2);
-  transition: 0.4s;
-  border-radius: 26px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.4s;
+    border-radius: 26px;
 }
 
 .slider::before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
 }
 
 input:checked + .slider {
-  background: rgba(255, 255, 255, 0.4);
+    background: #ffffff66;
 }
 
 input:checked + .slider::before {
-  transform: translateX(24px);
+    transform: translateX(24px);
 }
 
 /* Main Layout */
 main {
+    height: calc(100vh - 150px);
     max-width: 1800px;
     margin: 2rem auto;
     padding: 0 1.5rem;
     display: grid;
-    grid-template-columns: 300px 1fr 350px;
+    /* Coluna 3 agora usa 1fr para ocupar o restante do espaço */
+    grid-template-columns: 300px 300px 1fr;
     gap: 2rem;
-    min-height: calc(100vh - 150px);
 }
 
 /* Seções */
@@ -153,8 +154,29 @@ section h2 {
     padding-bottom: 0.5rem;
 }
 
+/* Selecione um pedido */
+.placeholder-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* flex-grow: 1 e height: 100% garantem que ele preencha a altura restante */
+    flex-grow: 1; 
+    height: 100%; 
+    color: #999;
+    font-size: 1.2rem;
+    padding: 2rem;
+}
+
+.placeholder-state p {
+    background: var(--hover);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+}
+
 /* Mesas Grid */
-.mesas-grid {
+.mesas-grid,
+.levar-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
@@ -204,52 +226,6 @@ section h2 {
     opacity: 0.9;
 }
 
-/* Itens Container */
-.itens-container {
-    display: flex;
-    flex-direction: column;
-    max-height: calc(100vh - 200px);
-}
-
-.mesa-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.status-badge {
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.status-badge.vazia {
-    background: #ffe0e0;
-    color: var(--vermelho);
-}
-
-.status-badge.ocupada {
-    background: #d4edda;
-    color: var(--verde);
-}
-
-.itens-lista {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-}
-
-.empty-state {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    color: #999;
-    font-size: 1.1rem;
-}
-
 .item-pedido {
     background: var(--hover);
     padding: 1rem;
@@ -283,174 +259,233 @@ section h2 {
     font-size: 1.1rem;
 }
 
-.item-subtotal {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 0.3rem;
-}
-
-.total-pedido {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    background: linear-gradient(135deg, var(--primario), var(--detalhe));
-    color: white;
-    border-radius: 10px;
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-/* Pagamento Form */
-.pagamento-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.form-group label {
-    font-weight: 600;
-    color: var(--texto);
-    font-size: 0.95rem;
-}
-
-.input-valor {
+.empty-state {
     display: flex;
     align-items: center;
-    background: var(--hover);
-    border: 2px solid var(--borda);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: border 0.3s;
-}
-
-.input-valor:focus-within {
-    border-color: var(--primario);
-}
-
-.currency {
-    padding: 0.8rem 1rem;
-    background: var(--borda);
-    font-weight: 600;
-    color: var(--texto);
-}
-
-input[type="number"],
-select,
-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    border: 2px solid var(--borda);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: var(--hover);
-    color: var(--texto);
-    transition: border 0.3s;
-}
-
-.input-valor input[type="number"] {
-    border: none;
-    flex: 1;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--primario);
-}
-
-select {
-    cursor: pointer;
-}
-
-textarea {
-    resize: vertical;
-    font-family: inherit;
-}
-
-.troco-info {
-    background: #e8f5e9;
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--verde);
-}
-
-[data-theme="dark"] .troco-info {
-    background: rgba(40, 167, 69, 0.2);
-}
-
-.troco-valor {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
+    height: 200px;
+    color: #999;
     font-size: 1.1rem;
 }
 
-.troco {
-    color: var(--verde);
-    font-weight: 700;
-    font-size: 1.3rem;
+/* NOVOS ESTILOS: Pedidos Levar (Col. Central) */
+.levar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.btn-fechar,
-.btn-limpar {
+.levar-card {
+    background: var(--hover);
     padding: 1rem;
-    border: none;
     border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
+    border-left: 4px solid var(--borda);
+    color: var(--texto);
 }
 
-.btn-fechar {
-    background: linear-gradient(135deg, var(--verde), #218838);
-    color: white;
-}
-
-.btn-fechar:hover:not(:disabled) {
+.levar-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
-.btn-limpar {
-    background: var(--hover);
-    color: var(--texto);
-    border: 2px solid var(--borda);
+/* 1. ESTILO PADRÃO SELECIONADO (Borda Vermelha/Detalhe) */
+.levar-card.selecionada {
+    border-left: 4px solid var(--detalhe);
+    background: #ffe6e6; 
+    box-shadow: 0 0 0 2px var(--detalhe);
+}
+[data-theme="dark"] .levar-card.selecionada {
+    background: #3a2e2e;
 }
 
-.btn-limpar:hover:not(:disabled) {
-    background: var(--vermelho);
+/* 2. NOVO: ESTILO SELECIONADO E PRONTO (Borda Verde) */
+.levar-card.pronto.selecionada {
+    border-left: 4px solid var(--verde);
+    background: #e6ffed; /* Fundo mais claro para destaque verde */
+    box-shadow: 0 0 0 2px var(--verde);
+}
+[data-theme="dark"] .levar-card.pronto.selecionada {
+    background: #2e3a2e; /* Fundo escuro para destaque verde */
+}
+
+.levar-card.preparando.selecionada {
+    border-left: 4px solid #ffc107;
+    background: #ffffe6; /* Fundo mais claro para destaque amarelo */
+    box-shadow: 0 0 0 2px #ffc107;
+}
+[data-theme="dark"] .levar-card.preparando.selecionada {
+    background: #3a392e; /* Fundo escuro para destaque amarelo */
+}
+
+.levar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--borda);
+    padding-bottom: 0.5rem;
+}
+
+/* NOVO: Estilos para quebra de linha do Cliente */
+.levar-info-cliente {
+    display: flex;
+    flex-direction: column; /* Força a quebra de linha */
+    align-items: flex-start;
+}
+
+.levar-label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.levar-nome {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-top: 0.2rem;
+}
+/* Fim dos novos estilos de Cliente */
+
+.levar-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.levar-total strong {
+    color: var(--primario);
+    font-size: 1.2rem;
+}
+
+/* Estilos de Status (cores) */
+.levar-status {
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.status-pronto {
+    background-color: var(--verde);
     color: white;
-    border-color: var(--vermelho);
 }
 
-.btn-fechar:disabled,
-.btn-limpar:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+.status-preparando {
+    background-color: #ffc107; /* Amarelo */
+    color: var(--texto);
 }
 
-/* Scrollbar */
-.itens-lista::-webkit-scrollbar {
+.status-aguardando {
+    background-color: var(--vermelho);
+    color: white;
+}
+
+[data-theme="dark"] .levar-card.selecionada {
+    background: #3a2e2e;
+}
+
+
+.levar-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--borda);
+    padding-bottom: 0.5rem;
+}
+
+.levar-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+}
+
+.levar-total strong {
+    color: var(--primario);
+    font-size: 1.2rem;
+}
+
+/* Estilos de Status (cores) */
+.levar-status {
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.status-pronto {
+    background-color: var(--verde);
+    color: white;
+}
+
+.status-preparando {
+    background-color: #ffc107; /* Amarelo */
+    color: white;
+}
+
+.status-aguardando {
+    background-color: var(--vermelho);
+    color: white;
+}
+
+.itens-container {
+    overflow-y: auto;
+}
+
+.mesas-container h2,
+.levar-container h2,
+.itens-container h2 {
+    margin-bottom: 15px;
+    flex-shrink: 0; /* Garante que o título não encolha/role */
+    color: var(--primario);
+    border-bottom: 2px solid var(--borda);
+    padding-bottom: 10px;
+}
+
+.mesas-container,
+.levar-container,
+.itens-container {
+    background-color: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--sombra);
+    padding: 20px;
+    
+    /* 2. Força a coluna a respeitar a altura do grid (necessário em alguns grids) */
+    min-height: 0; 
+    
+    /* 3. Layout Flex para o Conteúdo: Isso garante que o título (h2) não role */
+    display: flex;
+    flex-direction: column;
+}
+
+.levar-list {
+    flex: 1; /* Ocupa todo o espaço vertical restante dentro da SECTION */
+    overflow-y: auto; /* Adiciona a barra de rolagem vertical quando o conteúdo for grande */
+    
+    /* Ajustes específicos para as listas/grids */
+    padding: 10px; 
+    margin: -10px; /* Compensa o padding do container pai */
+}
+
+/* Para o ITENS-CONTAINER, como os itens são injetados diretamente nele: */
+.itens-container {
+    /* ... (outras propriedades da section) */
+    /* NOVO: Aplica a rolagem na seção inteira, abaixo do H2 */
+    overflow-y: auto; 
+}
+
+/* Estilos da barra de rolagem (WebKit) */
+::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
-.itens-lista::-webkit-scrollbar-track {
-    background: var(--hover);
-    border-radius: 10px;
+::-webkit-scrollbar-thumb {
+    background: var(--borda);
+    border-radius: 4px;
 }
 
-.itens-lista::-webkit-scrollbar-thumb {
-    background: var(--primario);
-    border-radius: 10px;
+::-webkit-scrollbar-track {
+    background: var(--card);
 }
 
 /* Responsive */
