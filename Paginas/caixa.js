@@ -28,25 +28,29 @@ async function initCaixa() {
 // Carregar Mesas da API
 async function carregarMesas() {
     // Defina seu NOVO número de mesas desejado (Exemplo: 15)
-    const NOVO_PADRAO_MESAS = 15; 
+    const NOVO_PADRAO_MESAS = 15;
+
+    console.log('✅ Mesas carregadas (fallback):', mesas.length);
     
     try {
         const response = await fetch('/api/config/mesas');
         const config = await response.json();
         // Mude o fallback do bloco try para o NOVO_PADRAO_MESAS
-        const qtdMesas = config.quantidadeMesas || NOVO_PADRAO_MESAS; 
+        const qtdMesas = NOVO_PADRAO_MESAS || config.quantidadeMesas; 
         mesas = Array.from({ length: qtdMesas }, (_, i) => ({
             id: i + 1,
             numero: i + 1,
             ocupada: false
         }));
-    } catch {
+        console.log('✅ Mesas carregadas da API:', mesas.length);
+    } catch (error) {
         // Mude o valor do bloco catch para o NOVO_PADRAO_MESAS
         mesas = Array.from({ length: NOVO_PADRAO_MESAS }, (_, i) => ({
             id: i + 1,
             numero: i + 1,
             ocupada: false
         }));
+        console.log('✅ Mesas carregadas (fallback):', mesas.length);
     }
 }
 
@@ -154,6 +158,8 @@ function renderizarMesas() {
     const mesasGrid = document.getElementById('mesasGrid');
     mesasGrid.innerHTML = '';
 
+    console.log('🎨 Renderizando mesas no DOM:', mesas.length);
+
     mesas.forEach(mesa => {
         const mesaCard = document.createElement('div');
         mesaCard.className = `mesa-card ${mesa.ocupada ? 'ocupada' : 'vazia'}`;
@@ -165,6 +171,8 @@ function renderizarMesas() {
         mesaCard.addEventListener('click', () => selecionarMesa(mesa.id));
         mesasGrid.appendChild(mesaCard);
     });
+
+    console.log('✅ Total de cards de mesa criados:', mesasGrid.children.length);
 }
 
 // Renderizar Pedidos para Levar
