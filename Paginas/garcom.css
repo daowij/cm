@@ -216,8 +216,6 @@ h2 {
   flex-grow: 1;
   overflow-y: auto;
   padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primario) var(--hover);
 }
 
 #lista-pedido::-webkit-scrollbar {
@@ -368,7 +366,6 @@ h2 {
 
 #btn-enviar-pedido:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 #btn-enviar-pedido:active:not(:disabled) {

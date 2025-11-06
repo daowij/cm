@@ -1,8 +1,8 @@
 // Variáveis Globais
 let mesas = [];
 let mesaSelecionadaId = null;
-let pedidosMesas = {}; // Simula pedidos por mesa (provisório)
-let pedidosLevar = []; // NOVO: Simula pedidos para levar (provisório)
+let pedidosMesas = {};
+let pedidosLevar = [];
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,17 +17,15 @@ async function initCaixa() {
         await carregarMesas();
         simularPedidosIniciais();
         renderizarMesas();
-        renderizarPedidosLevar(); // Chamada para renderizar pedidos levar
+        renderizarPedidosLevar();
     } catch (error) {
         console.error('Erro ao inicializar caixa:', error);
         alert('Erro ao carregar dados. Verifique o console.');
     }
 }
 
-
 // Carregar Mesas da API
 async function carregarMesas() {
-    // Defina seu NOVO número de mesas desejado (Exemplo: 15)
     const NOVO_PADRAO_MESAS = 15;
 
     console.log('✅ Mesas carregadas (fallback):', mesas.length);
@@ -35,7 +33,6 @@ async function carregarMesas() {
     try {
         const response = await fetch('/api/config/mesas');
         const config = await response.json();
-        // Mude o fallback do bloco try para o NOVO_PADRAO_MESAS
         const qtdMesas = NOVO_PADRAO_MESAS || config.quantidadeMesas; 
         mesas = Array.from({ length: qtdMesas }, (_, i) => ({
             id: i + 1,
@@ -44,7 +41,6 @@ async function carregarMesas() {
         }));
         console.log('✅ Mesas carregadas da API:', mesas.length);
     } catch (error) {
-        // Mude o valor do bloco catch para o NOVO_PADRAO_MESAS
         mesas = Array.from({ length: NOVO_PADRAO_MESAS }, (_, i) => ({
             id: i + 1,
             numero: i + 1,
@@ -60,7 +56,7 @@ function simularPedidosLevarIniciais() {
         {
             id: 101,
             nomeCliente: 'Ana Silva',
-            status: 'Pronto', // Borda Verde
+            status: 'Pronto',
             itens: [
                 { id: 10, nome: 'Milkshake Morango', preco: 15.00, quantidade: 1 },
                 { id: 11, nome: 'Empada de Frango', preco: 9.90, quantidade: 3 },
@@ -79,7 +75,7 @@ function simularPedidosLevarIniciais() {
         {
             id: 102,
             nomeCliente: 'Bruno Mendes',
-            status: 'Aguardando', // Borda Vermelha
+            status: 'Aguardando',
             itens: [
                 { id: 12, nome: 'Açaí Grande com Frutas', preco: 22.00, quantidade: 1 }
             ]
@@ -87,7 +83,7 @@ function simularPedidosLevarIniciais() {
          {
             id: 103,
             nomeCliente: 'Carlos Fedasrreira',
-            status: 'Preparando', // Borda Amarela
+            status: 'Preparando',
             itens: [
                 { id: 13, nome: 'Café Expresso', preco: 6.00, quantidade: 1 }
             ]
@@ -95,7 +91,7 @@ function simularPedidosLevarIniciais() {
         {
             id: 104,
             nomeCliente: 'Carlos Ferdareira',
-            status: 'Preparando', // Borda Amarela
+            status: 'Preparando',
             itens: [
                 { id: 13, nome: 'Café Expresso', preco: 6.00, quantidade: 1 }
             ]
@@ -103,7 +99,7 @@ function simularPedidosLevarIniciais() {
          {
             id: 105,
             nomeCliente: 'Carlos Ferrseira',
-            status: 'Preparando', // Borda Amarela
+            status: 'Preparando',
             itens: [
                 { id: 13, nome: 'Café Expresso', preco: 6.00, quantidade: 1 }
             ]
@@ -111,7 +107,7 @@ function simularPedidosLevarIniciais() {
          {
             id: 106,
             nomeCliente: 'Carlos Fedsadarreira',
-            status: 'Preparando', // Borda Amarela
+            status: 'Preparando',
             itens: [
                 { id: 13, nome: 'Café Expresso', preco: 6.00, quantidade: 1 }
             ]
@@ -119,15 +115,13 @@ function simularPedidosLevarIniciais() {
          {
             id: 107,
             nomeCliente: 'Carlos Fedsadarreira',
-            status: 'Preparando', // Borda Amarela
+            status: 'Preparando',
             itens: [
                 { id: 13, nome: 'Café Expresso', preco: 6.00, quantidade: 1 }
             ]
         }
-
     ];
 }
-
 
 // Simular Pedidos Iniciais (Mesas e Levar)
 function simularPedidosIniciais() {
@@ -149,7 +143,6 @@ function simularPedidosIniciais() {
     ];
     mesas[4].ocupada = true;
     
-    // Chamada para popular os pedidos para levar
     simularPedidosLevarIniciais(); 
 }
 
@@ -190,7 +183,6 @@ function renderizarPedidosLevar() {
         
         const pedidoDiv = document.createElement('div');
         
-        // LÓGICA DE CLASSE DO STATUS NO CARTÃO:
         let statusClassCard = '';
         if (pedido.status === 'Pronto') {
             statusClassCard = 'pronto';
@@ -201,10 +193,8 @@ function renderizarPedidosLevar() {
         }
 
         pedidoDiv.className = `levar-card ${statusClassCard}`; 
-        
         pedidoDiv.dataset.pedidoId = pedido.id;
         
-        // Lógica de classe do status para o TEXTO
         let statusClass = '';
         if (pedido.status === 'Pronto') {
             statusClass = 'status-pronto';
@@ -233,91 +223,75 @@ function renderizarPedidosLevar() {
     });
 }
 
-// Selecionar Mesa (AGORA COM LÓGICA DE TOOGLE)
+// Selecionar Mesa
 function selecionarMesa(mesaId) {
-    // 1. Remove seleção dos pedidos levar
     document.querySelectorAll('.levar-card').forEach(card => card.classList.remove('selecionada'));
     
     const cardSelecionado = document.querySelector(`[data-mesa-id="${mesaId}"]`);
-    
-    // 2. Verifica se o cartão JÁ ESTÁ selecionado
     const estaSelecionada = cardSelecionado && cardSelecionado.classList.contains('selecionada');
 
-    // 3. Remove a seleção de TODAS as mesas
     document.querySelectorAll('.mesa-card').forEach(card => card.classList.remove('selecionada'));
 
-    // 4. Se a mesa estava selecionada, deseleciona (feito no passo 3) e limpa a área de itens, mostrando o placeholder.
     if (estaSelecionada) {
-        // Limpa a variável global de mesa selecionada
         mesaSelecionadaId = null; 
-        
-        document.querySelector('.itens-container').innerHTML = `
-            <div id="itensPlaceholder" class="placeholder-state">
-                <p>Selecione um pedido para visualizar os itens.</p>
-            </div>
-        `;
-    } 
-    // 5. Se a mesa NÃO estava selecionada, selecione ela e renderize os detalhes.
-    else {
-        // Atualiza a variável global
+        limparDetalhes();
+    } else {
         mesaSelecionadaId = mesaId;
-
         if (cardSelecionado) {
             cardSelecionado.classList.add('selecionada');
         }
-        renderizarItensMesa(mesaId);
+        renderizarDetalhesMesa(mesaId);
     }
 }
 
-// Selecionar Pedido Levar (COM LÓGICA DE TOOGLE)
+// Selecionar Pedido Levar
 function selecionarPedidoLevar(pedidoId) {
-    // Remove seleção das mesas
     document.querySelectorAll('.mesa-card').forEach(card => card.classList.remove('selecionada'));
 
     const cardSelecionado = document.querySelector(`[data-pedido-id="${pedidoId}"]`);
-    
-    // 1. Verifica se o cartão JÁ ESTÁ selecionado
     const estaSelecionado = cardSelecionado && cardSelecionado.classList.contains('selecionada');
 
-    // 2. Remove a seleção de TODOS os cartões levar
     document.querySelectorAll('.levar-card').forEach(card => card.classList.remove('selecionada'));
     
-    // 3. Se o cartão estava selecionado, deseleciona (feito no passo 2) e limpa a área de itens, mostrando o placeholder.
     if (estaSelecionado) {
-        document.querySelector('.itens-container').innerHTML = `
-            <div id="itensPlaceholder" class="placeholder-state">
-                <p>Selecione um pedido para visualizar os itens.</p>
-            </div>
-        `;
-    } 
-    // 4. Se o cartão NÃO estava selecionado, selecione ele e renderize os detalhes.
-    else {
+        limparDetalhes();
+    } else {
         if (cardSelecionado) {
             cardSelecionado.classList.add('selecionada');
         }
-        renderizarItensPedidoLevar(pedidoId);
+        renderizarDetalhesPedidoLevar(pedidoId);
     }
 }
 
-// Renderizar Itens da Mesa Selecionada
-function renderizarItensMesa(mesaId) {
-    let itensContainer = document.querySelector('.itens-container');
+// NOVA FUNÇÃO: Limpar detalhes (mostra placeholders)
+function limparDetalhes() {
+    document.querySelector('.itens-container').innerHTML = `
+        <div id="itensPlaceholder" class="placeholder-state">
+            <p>Selecione um pedido para visualizar os itens.</p>
+        </div>
+    `;
     
-    // Limpa o container inteiro (removendo o placeholder inicial)
-    itensContainer.innerHTML = ''; 
+    document.querySelector('.totalizadores-container').innerHTML = `
+        <div id="totalizadoresPlaceholder" class="placeholder-state">
+            <p>Totais aparecerão aqui.</p>
+        </div>
+    `;
+}
 
-    // Adiciona o título
+// NOVA FUNÇÃO: Renderizar detalhes da mesa (itens + totalizadores)
+function renderizarDetalhesMesa(mesaId) {
+    const pedidos = pedidosMesas[mesaId] || [];
+    
+    // Renderizar itens
+    let itensContainer = document.querySelector('.itens-container');
     itensContainer.innerHTML = `<h2>Mesa ${mesaId}</h2>`; 
 
-    const pedidos = pedidosMesas[mesaId] || [];
-
     if (pedidos.length === 0) {
-        // Se não houver pedidos, adiciona o estado vazio
         itensContainer.innerHTML += `<div class="empty-state"><p>🍽️ Esta mesa não possui pedidos</p></div>`;
+        limparTotalizadores();
         return;
     }
 
-    // Se houver pedidos, renderiza os itens
     pedidos.forEach(item => {
         const subtotal = item.preco * item.quantidade;
         const itemDiv = document.createElement('div');
@@ -330,26 +304,32 @@ function renderizarItensMesa(mesaId) {
                     <span>Unit: R$ ${item.preco.toFixed(2)}</span>
                 </div>
             </div>
+            <div class="botoes-item-info">
+                <button class="botao-item-pago">Pago</button>
+                <button class="botao-item-entregue">Entregue</button>
+                <button class="botao-item-remover">Remover</button>
+            </div>
             <div class="item-valor">
                 <div class="item-preco">R$ ${subtotal.toFixed(2)}</div>
             </div>
         `;
         itensContainer.appendChild(itemDiv);
     });
+    
+    // Renderizar totalizadores
+    renderizarTotalizadores(pedidos);
 }
 
-// Renderizar Itens do Pedido Levar
-function renderizarItensPedidoLevar(pedidoId) {
-    let itensContainer = document.querySelector('.itens-container');
-    itensContainer.innerHTML = ''; 
-
+// NOVA FUNÇÃO: Renderizar detalhes do pedido levar
+function renderizarDetalhesPedidoLevar(pedidoId) {
     const pedido = pedidosLevar.find(p => p.id === pedidoId);
     
-    // Adiciona o título dinâmico
-    itensContainer.innerHTML = `<h2>Pedido #${pedidoId} (${pedido.nomeCliente})</h2>`;
+    let itensContainer = document.querySelector('.itens-container');
+    itensContainer.innerHTML = `<h2>Pedido #${pedidoId} - ${pedido.nomeCliente}</h2>`;
 
     if (!pedido || pedido.itens.length === 0) {
         itensContainer.innerHTML += `<div class="empty-state"><p>Nenhum item neste pedido.</p></div>`;
+        limparTotalizadores();
         return;
     }
 
@@ -365,14 +345,62 @@ function renderizarItensPedidoLevar(pedidoId) {
                     <span>Unit: R$ ${item.preco.toFixed(2)}</span>
                 </div>
             </div>
+            <div class="botoes-item-info">
+                <button class="botao-item-pago">Pago</button>
+                <button class="botao-item-entregue">Entregue</button>
+                <button class="botao-item-remover">Remover</button>
+            </div>
             <div class="item-valor">
                 <div class="item-preco">R$ ${subtotal.toFixed(2)}</div>
             </div>
         `;
         itensContainer.appendChild(itemDiv);
     });
+    
+    // Renderizar totalizadores
+    renderizarTotalizadores(pedido.itens);
 }
 
+// NOVA FUNÇÃO: Renderizar totalizadores
+function renderizarTotalizadores(itens) {
+    const totalizadoresContainer = document.querySelector('.totalizadores-container');
+    
+    // Calcular valores
+    const subtotal = itens.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+    const garcom = subtotal * 0.10; // 10% de taxa de garçom
+    const total = subtotal + garcom;
+    
+    totalizadoresContainer.innerHTML = `
+        <h2>Resumo do Pedido</h2>
+        <div class="totalizadores-content">
+            <div class="total-linha">
+                <span class="total-label">Subtotal:</span>
+                <span class="total-valor">R$ ${subtotal.toFixed(2)}</span>
+            </div>
+            <div class="total-linha">
+                <span class="total-label">Taxa Garçom (10%):</span>
+                <span class="total-valor">R$ ${garcom.toFixed(2)}</span>
+            </div>
+            <div class="total-linha destaque">
+                <span class="total-valor-10">TOTAL A PAGAR COM 10%: <strong>R$ ${total.toFixed(2)}</strong></span>
+                <span class="total-valor-10">TOTAL A PAGAR SEM 10%: <strong>R$ ${subtotal.toFixed(2)}</strong></span>
+            </div>
+            <div class="botoes-finalizar-pedido">
+                <button class="pagamento-pedido">Pagar tudo</button>
+                <button class="finalizar-pedido">Finalizar</button>
+            </div>
+        </div>
+    `;
+}
+
+// NOVA FUNÇÃO: Limpar totalizadores
+function limparTotalizadores() {
+    document.querySelector('.totalizadores-container').innerHTML = `
+        <div id="totalizadoresPlaceholder" class="placeholder-state">
+            <p>Totais aparecerão aqui.</p>
+        </div>
+    `;
+}
 
 // Setup Event Listeners
 function setupEventListeners() {

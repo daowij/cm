@@ -31,6 +31,7 @@
                 <!-- Mesas serão inseridas aqui via JS -->
             </div>
         </section>
+        
         <!-- Coluna Central: Levar -->
         <section class="levar-container">
             <h2>Pedidos levar</h2>
@@ -39,16 +40,23 @@
             </div>
         </section>
 
-        <!-- Coluna Direita: Itens dos pedidos -->
-        <section class="itens-container">
-            <div id="itensPlaceholder" class="placeholder-state">
-                <p>Selecione um pedido para visualizar os itens.</p>
-            </div>
-        </section>
+        <!-- Coluna Direita: Itens dos pedidos (DIVIDIDA EM 2) -->
+        <div class="detalhes-pedido-wrapper">
+            <!-- Seção Superior: Itens -->
+            <section class="itens-container">
+                <div id="itensPlaceholder" class="placeholder-state">
+                    <p>Selecione um pedido para visualizar os itens.</p>
+                </div>
+            </section>
 
-        
+            <!-- Seção Inferior: Totalizadores -->
+            <section class="totalizadores-container">
+                <div id="totalizadoresPlaceholder" class="placeholder-state">
+                    <p>Totais aparecerão aqui.</p>
+                </div>
+            </section>
+        </div>
     </main>
-
     <script src="caixa.js"></script>
 </body>
 </html>

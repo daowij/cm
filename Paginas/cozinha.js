@@ -146,6 +146,60 @@ function simularPedidosIniciais() {
             itens: [
                 { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
             ]
+        },
+        {
+            id: 11,
+            mesa: 7,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
+        },
+        {
+            id: 12,
+            mesa: 7,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
+        },
+        {
+            id: 13,
+            mesa: 8,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
+        },
+        {
+            id: 14,
+            mesa: 9,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
+        },
+        {
+            id: 115,
+            mesa: 71,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
+        },
+        {
+            id: 1062,
+            mesa: 7841,
+            dataHora: new Date(Date.now() - 3 * 60000).toISOString(),
+            status: 'pendente',
+            itens: [
+                { id: 16, nome: 'Cerveja Lata', quantidade: 3, categoria: 'Bebidas' }
+            ]
         }
     ];
 
